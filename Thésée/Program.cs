@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Thésée
 {
    class Program
-   {
+   {        
       static void Afficher(Carte carte)
       {
          carte.Afficher();
@@ -96,6 +96,11 @@ namespace Thésée
          while ((état = AppliquerChoix(carte, choix)) == État.Poursuivre)
             choix = ExécuterTour(carte, protagonistes);
          TerminerPartie(carte, état);
-      }
+
+
+            //Creation du Cancelation token
+            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationToken token = source.Token;
+        }
    }
 }
