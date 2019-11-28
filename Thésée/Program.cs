@@ -6,6 +6,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+//console.readkey lit et lorsque le shit cancel, le readline ne cancel pas
+
+//boucle est ce que je dois canceler
+
+//si je veux pas canceler je dois mettre mon readkey
+
 namespace Thésée
 {
    class Program
@@ -34,6 +40,7 @@ namespace Thésée
          carte.Trouver(Carte.SYMBOLE_BONHEUR).Count != 0;
       static bool EstVictoireVilain(Carte carte) =>
          carte.Trouver(Carte.SYMBOLE_DÉCÈS).Count != 0;
+      
 
       static readonly Point[] deltas = new[]
       {
@@ -81,26 +88,31 @@ namespace Thésée
          }
          Console.WriteLine("Au revoir!");
       }
-      static void Main(string[] args)
-      {
-         Carte carte = FabriqueCarte.Créer(args.Length == 0 ?
-            "../../CarteTest.txt" : args[0]);
-         Héros héros = new Héros(carte.Trouver(Héros.SYMBOLE)[0]);
-         Vilain vilain = new Vilain(carte.Trouver(Vilain.SYMBOLE)[0]);
-         var protagonistes = new Protagoniste[] { héros, vilain };
-         foreach (var p in protagonistes)
-            p.Abonner(carte);
-         héros.Abonner(vilain);
-         État état;
-         var choix = ExécuterTour(carte, protagonistes);
-         while ((état = AppliquerChoix(carte, choix)) == État.Poursuivre)
-            choix = ExécuterTour(carte, protagonistes);
-         TerminerPartie(carte, état);
-
-
+        static void Main(string[] args)
+        {
+            List<Task> taches = new List<Task>();
+            Carte carte = FabriqueCarte.Créer(args.Length == 0 ?
+               "../../CarteTest.txt" : args[0]);
             //Creation du Cancelation token
             CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
+            CancellationToken jeton = source.Token;
+
+            Héros héros = new Héros(carte.Trouver(Héros.SYMBOLE)[0]);
+            Vilain vilain = new Vilain(carte.Trouver(Vilain.SYMBOLE)[0]);
+            var protagonistes = new Protagoniste[] { héros, vilain };
+            foreach (var p in protagonistes) //TODO check si l'agir des protagonistes est vraiment bien fait
+            {
+                taches.Add(p.Agir(carte, jeton));
+            }
+            héros.Abonner(vilain);
+            État état;
+            var choix = ExécuterTour(carte, protagonistes);
+            while ((état = AppliquerChoix(carte, choix)) == État.Poursuivre)
+                choix = ExécuterTour(carte, protagonistes);
+            TerminerPartie(carte, état);
+
+
+            
         }
-   }
+    }
 }
