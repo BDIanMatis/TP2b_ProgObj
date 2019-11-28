@@ -40,7 +40,7 @@ namespace Thésée
             Position = nouvellePosition;
             return true;
         }
-        public virtual async Task<(Protagoniste, Choix)> Agir(Carte carte)
+        public virtual async Task<(Protagoniste, Choix)> Agir(Carte carte, CancellationToken jeton)
         {
             return (this, Choix.Rien);
         }
