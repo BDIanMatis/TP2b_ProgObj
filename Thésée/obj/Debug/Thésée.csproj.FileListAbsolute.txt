@@ -5,3 +5,7 @@ F:\Travaux Cegep\Prog objet Avanc\TP2b-ProgObj\Thésée\obj\Debug\Thésée.cspro
 F:\Travaux Cegep\Prog objet Avanc\TP2b-ProgObj\Thésée\obj\Debug\Thésée.csproj.CoreCompileInputs.cache
 F:\Travaux Cegep\Prog objet Avanc\TP2b-ProgObj\Thésée\obj\Debug\Thésée.exe
 F:\Travaux Cegep\Prog objet Avanc\TP2b-ProgObj\Thésée\obj\Debug\Thésée.pdb
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.csprojAssemblyReference.cache
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.csproj.CoreCompileInputs.cache
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.exe
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.pdb
