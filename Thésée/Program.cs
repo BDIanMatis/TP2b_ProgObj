@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Thésée
 {
-   class Program
+   class Program //TODO killmyself
    {        
       static void Afficher(Carte carte)
       {
