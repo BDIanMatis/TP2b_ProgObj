@@ -40,6 +40,9 @@ namespace Thésée
          Position = nouvellePosition;
          return true;
       }
-      public abstract Choix Agir(Carte carte);
-   }
+        public virtual async Task<Choix> Agir(Carte carte)
+        {
+            return new Choix();
+        }
+    }
 }
