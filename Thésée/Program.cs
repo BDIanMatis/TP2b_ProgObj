@@ -80,7 +80,7 @@ namespace Thésée
          switch (état)
          {
             case État.VictoireHéros:
-               Console.WriteLine("Le héros s'est échappé, ouf!");
+               Console.WriteLine("Le héros s'est échappé, oof!");
                break;
             case État.VictoireVilain:
                Console.WriteLine("Oh non, le héros a été dévoré!");
