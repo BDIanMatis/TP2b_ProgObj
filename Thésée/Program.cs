@@ -70,7 +70,7 @@ namespace Thésée
          var choix = new List<(Protagoniste, Choix)>();
          Afficher(carte);
          foreach (Protagoniste p in protagonistes)
-            choix.Add((p, p.Agir(carte)));
+            choix.Add((p, p.Agir(carte, jeton)));
          return choix;
       }
       static void TerminerPartie(Carte carte, État état)
