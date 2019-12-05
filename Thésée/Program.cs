@@ -76,6 +76,7 @@ namespace Thésée
                 choix.Add((p.Agir(carte, source.Token)));
 
             Task<(Protagoniste, Choix)> premier = await Task.WhenAny(choix);
+            source.Cancel();
 
             return premier.Result;
         }
