@@ -15,11 +15,15 @@ namespace Thésée
         }
         public override async Task<(Protagoniste, Choix)> Agir(Carte carte, CancellationToken jeton)
         {
-            AfficherMenu(carte);
-            await Task.Delay(1000);
+            await Task.Run(() =>
+                {
+                    AfficherMenu(carte);
 
 
-            return ((this, LireChoix(jeton).Result));
+
+                    return ((this, LireChoix(jeton).Result));
+                });
+
         }
         static void AfficherMenu(Carte carte)
         {
@@ -29,25 +33,32 @@ namespace Thésée
         static async Task<Choix> LireChoix(CancellationToken jeton)
         {
             Console.Write("Votre choix? ");
-            await Task.Run(() =>(
-
-
-            switch (Console.ReadKey(true).Key)
+            Choix choix = default;
+            await Task.Run(() =>
             {
-                case ConsoleKey.Q:
-                    return Choix.Quitter;
-                case ConsoleKey.DownArrow:
-                    return Choix.Bas;
-                case ConsoleKey.UpArrow:
-                    return Choix.Haut;
-                case ConsoleKey.LeftArrow:
-                    return Choix.Gauche;
-                case ConsoleKey.RightArrow:
-                    return Choix.Droite;
-                default:
-                    return Choix.Rien;
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.Q:
+                        choix = Choix.Quitter;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        choix = Choix.Bas;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        choix = Choix.Haut;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        choix = Choix.Gauche;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        choix = Choix.Droite;
+                        break;
+                    default:
+                        choix = Choix.Rien;
+                        break;
+                }
             });
-            
+            return choix;
         }
         /// <summary>
         /// 
