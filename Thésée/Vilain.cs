@@ -30,7 +30,7 @@ namespace Thésée
 
         public override async Task<(Protagoniste, Choix)> Agir(Carte carte, CancellationToken jeton)
         {
-            await Task.Delay(100);
+            await Task.Delay(100, jeton);
             int faireMouvement;
 
             if (!jeton.IsCancellationRequested)
