@@ -65,6 +65,7 @@ namespace Thésée
                 return État.Poursuivre;
             });
         }
+
         static async Task<(Protagoniste, Choix)> ExécuterTour(Carte carte, Protagoniste[] protagonistes)
         {
             var choix = new List<Task<(Protagoniste, Choix)>>();
@@ -119,4 +120,5 @@ namespace Thésée
             });
         }
     }
+
 }
