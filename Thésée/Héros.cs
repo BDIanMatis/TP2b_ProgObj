@@ -18,12 +18,10 @@ namespace Thésée
             await Task.Run(() =>
                 {
                     AfficherMenu(carte);
-
-
-
+                    
                     return ((this, LireChoix(jeton).Result));
-                });
-
+                },jeton);//Task run with a cancelation token 
+            return ((this,Choix.Rien));
         }
         static void AfficherMenu(Carte carte)
         {
@@ -36,7 +34,7 @@ namespace Thésée
             Choix choix = default;
             await Task.Run(() =>
             {
-                switch (Console.ReadKey(true).Key)
+                switch (LireTouche(jeton).Result)
                 {
                     case ConsoleKey.Q:
                         choix = Choix.Quitter;
@@ -57,7 +55,7 @@ namespace Thésée
                         choix = Choix.Rien;
                         break;
                 }
-            });
+            },jeton);//Task run with a cancelation token 
             return choix;
         }
         /// <summary>
@@ -74,7 +72,7 @@ namespace Thésée
                     if (jeton.IsCancellationRequested)
                         return;
                 touche = Console.ReadKey(true).Key;
-            });
+            },jeton);//Task run with a cancelation token 
             return touche;
         }
     }
