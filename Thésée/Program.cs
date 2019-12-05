@@ -62,7 +62,6 @@ namespace Thésée
                         if (EstVictoireHéros(carte))
                             return État.VictoireHéros;
                     }
-
                 return État.Poursuivre;
             });
         }
@@ -120,7 +119,6 @@ namespace Thésée
                 } while (AppliquerChoix(carte, ExécuterTour(carte, protagonistes)).Result == État.Poursuivre);
                 return AppliquerChoix(carte, ExécuterTour(carte, protagonistes)).Result;
             });
-
         }
     }
 
