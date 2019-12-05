@@ -15,13 +15,13 @@ namespace Thésée
         }
         public override async Task<(Protagoniste, Choix)> Agir(Carte carte, CancellationToken jeton)
         {
-            await Task.Run(() =>
+            return await Task.Run(() =>
                 {
                     AfficherMenu(carte);
                     
                     return ((this, LireChoix(jeton).Result));
                 },jeton);//Task run with a cancelation token 
-            return ((this,Choix.Rien));
+            
         }
         static void AfficherMenu(Carte carte)
         {
