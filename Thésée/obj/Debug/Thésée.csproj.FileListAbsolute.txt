@@ -9,3 +9,6 @@ F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.cspro
 F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.csproj.CoreCompileInputs.cache
 F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.exe
 F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\obj\Debug\Thésée.pdb
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\bin\Debug\Thésée.exe.config
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\bin\Debug\Thésée.exe
+F:\Cegep\Session3\Prog_obj_avance\TP2b_ProgObj\Thésée\bin\Debug\Thésée.pdb

@@ -48,42 +48,36 @@ namespace Thésée
          new Point(-1, 0), new Point(0, 1)
       };
 
-      static async Task<État> AppliquerChoix(Carte carte, List<(Protagoniste qui, Choix quoi)> choix)
+      static async Task<État> AppliquerChoix(Carte carte, Task<(Protagoniste qui, Choix quoi)> choix)
       {
             return await Task.Run(() => 
             {
-                foreach (var chx in choix)
-                {
-                    if (chx.quoi == Choix.Quitter)
+                    if (choix.Result.quoi == Choix.Quitter)
                         return État.Quitter;
-                    else if (EstEntre(chx.quoi, Choix.Droite, Choix.Bas))
-                        if (Déplacer(carte, chx.qui, deltas[(int)chx.quoi]))
+                    else if (EstEntre(choix.Result.quoi, Choix.Droite, Choix.Bas))
+                        if (Déplacer(carte, choix.Result.qui, deltas[(int)choix.Result.quoi]))
                         {
                             if (EstVictoireVilain(carte))
                                 return État.VictoireVilain;
                             if (EstVictoireHéros(carte))
                                 return État.VictoireHéros;
                         }
-                }
                 return État.Poursuivre;
             });
         }
-      static async Task<List<(Protagoniste, Choix)>> ExécuterTour(Carte carte, Protagoniste[] protagonistes)
+        static async Task<(Protagoniste, Choix)> ExécuterTour(Carte carte, Protagoniste[] protagonistes)
         {
-            var choix = new List<(Protagoniste, Choix)>();
+            var choix = new List<Task<(Protagoniste, Choix)>>();
             CancellationTokenSource source = new CancellationTokenSource();
-            return await Task.Run(() => 
-            {
-                Afficher(carte);
-                foreach (Protagoniste p in protagonistes)
-                {
-                    CancellationToken jeton = source.Token;
-                    choix.Add((p, p.Agir(carte, jeton).Result).Result);
-                }
-                return choix;
-            });
+
+            foreach (Protagoniste p in protagonistes)
+                choix.Add((p.Agir(carte, source.Token)));
+
+            Task<(Protagoniste, Choix)> premier = await Task.WhenAny(choix);
+
+            return premier.Result;
         }
-      static void TerminerPartie(Carte carte, État état)
+        static void TerminerPartie(Carte carte, État état)
       {
          Console.BackgroundColor = ConsoleColor.Black;
          Afficher(carte);
@@ -111,25 +105,18 @@ namespace Thésée
             héros.Abonner(vilain);
             var état = Task.WhenAny(DemarrerPartie(carte, protagonistes));
             TerminerPartie(carte, état.Result.Result);
-
-
-
-
         }
 
         static async Task<État> DemarrerPartie(Carte carte, Protagoniste[] protagonistes)
         {
-            do
+            return await Task.Run(() =>
             {
-                
-
-                carte.Afficher();
-            } while (AppliquerChoix(carte, ExécuterTour(carte, protagonistes).Result).Result == État.Poursuivre);
-
+                do
+                {
+                    carte.Afficher();
+                } while (AppliquerChoix(carte, ExécuterTour(carte, protagonistes)).Result == État.Poursuivre);
+                return AppliquerChoix(carte, ExécuterTour(carte, protagonistes)).Result;
+            }); 
         }
-
-         
-
-
     }
 }
